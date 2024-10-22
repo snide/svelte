@@ -8,7 +8,7 @@ import {
 	PROPS_IS_UPDATED
 } from '../../../constants.js';
 import { get_descriptor, is_function } from '../../shared/utils.js';
-import { mutable_source, set, source } from './sources.js';
+import { internal_set, mutable_source, source } from './sources.js';
 import { derived, derived_safe_equal } from './deriveds.js';
 import {
 	active_effect,
@@ -392,7 +392,7 @@ export function prop(props, key, flags, fallback) {
 
 			if (!current_value.equals(new_value)) {
 				from_child = true;
-				set(inner_current_value, new_value);
+				internal_set(inner_current_value, new_value);
 				// To ensure the fallback value is consistent when used with proxies, we
 				// update the local fallback_value, but only if the fallback is actively used
 				if (fallback_used && fallback_value !== undefined) {
